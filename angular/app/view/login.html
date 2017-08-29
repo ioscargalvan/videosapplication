@@ -3,6 +3,17 @@
   <h1>{{titulo}}</h1>
   <hr>
 
+  <div class="identity-data" *ngIf = "identity">
+    <div class="user-identity alert alert-success" *ngIf = "identity.email">
+      Bienvenido {{identity.name}}
+    </div>
+
+    <div class="user-identity alert alert-danger" *ngIf = "identity.data">
+      {{identity.data}}
+    </div>
+
+  </div>
+
   <form class="col-md-4" #loginForm="ngForm" (ngSubmit) = "onSubmit()">
       <p>
         <label>Correo electrónico</label>

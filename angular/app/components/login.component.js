@@ -27,7 +27,8 @@ var LoginComponent = (function () {
                 localStorage.removeItem('token');
                 _this.identity = null;
                 _this.token = null;
-                _this._router.navigate(["/index"]);
+                //this._router.navigate(["/index"]);
+                window.location.href = "/login";
             }
         });
         this.user = {
@@ -63,6 +64,8 @@ var LoginComponent = (function () {
                         else {
                             if (!_this.token.status) {
                                 localStorage.setItem("token", token);
+                                // redirectTo
+                                window.location.href = "/";
                             }
                         }
                     }, function (error) {

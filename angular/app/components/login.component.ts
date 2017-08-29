@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
           this.identity = null;
           this.token = null;
 
-          this._router.navigate(["/index"]);
+          //this._router.navigate(["/index"]);
+          window.location.href = "/login";
         }
       });
 
@@ -79,6 +80,7 @@ export class LoginComponent implements OnInit {
                       localStorage.setItem("token", token);
 
                       // redirectTo
+                      window.location.href = "/";
                     }
                   }
                 },
