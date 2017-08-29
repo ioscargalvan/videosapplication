@@ -1,0 +1,67 @@
+<header id = "header">
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type = "button" class = "navbar-toggle collapsed" data-toggle = "collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class = "sr-only">Toggle</span>
+          <span class = "icon-bar"></span>
+          <span class = "icon-bar"></span>
+          <span class = "icon-bar"></span>
+        </button>
+
+        <a class = "navbar-brand" [routerLink] = "['/index']">
+          <img src="./assets/images/logo.png" height="50" style="margin-top: -15px"/>
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse" id = "bs-example-navbar-collapse-1">
+        <ul class = "nav navbar-nav">
+          <li><a [routerLink] = "['/index']">Home</a></li>
+          <li><a [routerLink] = "['/index']" *ngIf="identity">Crear video</a></li>
+        </ul>
+
+        <ul *ngIf="identity" class = "nav navbar-nav navbar-right" id = "credentials-top">
+          <li class = "dropdown">
+            <a href="#" class = "drowpdown-toggle" data-toggle="dropdown" role = "button" aria-haspopup="true" aria-expanded="false">
+
+              {{identity.name}} {{identity.surname}} <span class = "caret"></span>
+            </a>
+
+            <ul class = "dropdown-menu">
+              <li>
+                <a [routerLink] = "['/index']">
+                  <span class = "glyphicon glyphicon-home"></span> Mi canal
+                </a>
+              </li>
+              <li>
+                <a [routerLink] = "['/index']">
+                  <span class = "glyphicon glyphicon-cog"></span> Ajustes
+                </a>
+              </li>
+              <li class = "divider" role = "separator"></li>
+              <li>
+                <a [routerLink] = "['/login', 1]">
+                  <span class = "glyphicon glyphicon-log-out"></span> Cerrar sesión
+                </a>
+              </li>
+            </ul>
+
+          </li>
+        </ul>
+
+        <ul *ngIf="!identity" class = "nav navbar-nav navbar-right">
+          <li><a [routerLink] = "['/login']">Iniciar sesión</a></li>
+          <li><a [routerLink] = "['/register']">Registrar</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<div class="clearfix"></div>
+
+<section class = "main">
+  <router-outlet></router-outlet>
+  <div class="clearfix"></div>
+</section>

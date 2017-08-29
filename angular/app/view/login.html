@@ -1,0 +1,21 @@
+<div class="col-md-12">
+  <hr>
+  <h1>{{titulo}}</h1>
+  <hr>
+
+  <form class="col-md-4" #loginForm="ngForm" (ngSubmit) = "onSubmit()">
+      <p>
+        <label>Correo electrónico</label>
+        <input #email="ngForm" ngControl="email" type="email" class = "form-control" [(ngModel)] = "user.email" required>
+        <span *ngIf="!email.valid">El email es obligatorio.</span>
+      </p>
+
+      <p>
+        <label>Contraseña</label>
+        <input #password="ngForm" ngControl="password" type="password" class = "form-control" [(ngModel)] = "user.password" required>
+        <span *ngIf="!password.valid">La contraseña es obligatoria.</span>
+      </p>
+
+      <input type="submit" value="Iniciar sesión" class = "btn btn-primary pull-right">
+  </form>
+</div>
