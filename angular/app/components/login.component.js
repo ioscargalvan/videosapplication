@@ -36,10 +36,10 @@ var LoginComponent = (function () {
             "password": "",
             "gethash": false
         };
-        var ide = this._loginService.getIdentity();
-        var tk = this._loginService.getToken();
-        console.log(ide);
-        console.log(tk);
+        var identity = this._loginService.getIdentity();
+        if (identity != null && identity.sub) {
+            this._router.navigate(['/index']);
+        }
     };
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;

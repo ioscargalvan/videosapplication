@@ -42,11 +42,11 @@ export class LoginComponent implements OnInit {
         "gethash" : false
       };
 
-      let ide = this._loginService.getIdentity();
-      let tk = this._loginService.getToken();
+      let identity = this._loginService.getIdentity();
 
-      console.log(ide);
-      console.log(tk);
+      if(identity != null && identity.sub) {
+        this._router.navigate(['/index']);
+      }
 
 
   }
