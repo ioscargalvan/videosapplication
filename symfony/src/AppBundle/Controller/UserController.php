@@ -128,7 +128,7 @@ class UserController extends Controller {
                 $email = (isset($params->email)) ? $params->email : null;
                 $name = (isset($params->name) && ctype_alpha($params->name)) ? $params->name : null;
                 $surname = (isset($params->surname) && ctype_alpha($params->surname)) ? $params->surname : null;
-                $password = (isset($params->password)) ? $params->password : null;
+                $password = (isset($params->password) && !empty($params->password)) ? $params->password : null;
 
                 $emailConstraint = new Assert\Email();
                 $emailConstraint->message = "This email is not valid!";

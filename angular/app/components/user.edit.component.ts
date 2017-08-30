@@ -18,6 +18,7 @@ export class UserEditComponent implements OnInit {
   public user: User;
   public errorMessage;
   public status;
+  public identity;
 
   constructor(private _loginService: LoginService,
     private _route: ActivatedRoute,
@@ -26,6 +27,7 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit() {
     let identity = this._loginService.getIdentity();
+    this.identity = identity;
     if(identity == null) {
       this._router.navigate(['/index']);
     } else {
@@ -42,6 +44,11 @@ export class UserEditComponent implements OnInit {
 
   onSubmit() {
     console.log(this.user);
+
+    if(this.user.password == this.identity.password) {
+      this.user.password = "";
+    }
+
     this._loginService.updateUser(this.user).subscribe(
       response => {
         console.log(response);
@@ -49,6 +56,9 @@ export class UserEditComponent implements OnInit {
 
         if(this.status != "success") {
           this.status = "error";
+        } else {
+          this.user.password = this.identity.password;
+          localStorage.setItem('identity', JSON.stringify(this.user));
         }
       },
       error => {
