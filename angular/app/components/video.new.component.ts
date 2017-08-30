@@ -20,9 +20,10 @@ export class VideoNewComponent implements OnInit {
     public video;
     public errorMessage;
     public status;
+    public uploadedImage;
 
     constructor(private _uploadService: UploadService, private _loginService: LoginService, private _videoService: VideoService, private _route: ActivatedRoute, private _router: Router) {
-
+      this.uploadedImage = false;
     }
 
 
@@ -57,5 +58,23 @@ export class VideoNewComponent implements OnInit {
       }
     );
 
+  }
+
+  public filesToUpload: Array<File>;
+  public resultUpload;
+
+  fileChangeEventImage(fileInput: any) {
+    this.filesToUpload = <Array<File>> fileInput.target.files;
+    let token = this._loginService.getToken();
+    let url = "http://localhost/full_stack/symfony/web/app_dev.php/video/upload-image/" + this.video.id;
+    this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(
+      (result) => {
+        this.resultUpload = result;
+        console.log(this.resultUpload);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

@@ -22,6 +22,7 @@ var VideoNewComponent = (function () {
         this._route = _route;
         this._router = _router;
         this.titulo = "Crear un nuevo video";
+        this.uploadedImage = false;
     }
     VideoNewComponent.prototype.ngOnInit = function () {
         this.video = new video_1.Video(1, "", "", "public", "null", "null", null, null);
@@ -46,6 +47,18 @@ var VideoNewComponent = (function () {
             if (_this.errorMessage != null) {
                 console.log(_this.errorMessage);
             }
+        });
+    };
+    VideoNewComponent.prototype.fileChangeEventImage = function (fileInput) {
+        var _this = this;
+        this.filesToUpload = fileInput.target.files;
+        var token = this._loginService.getToken();
+        var url = "http://localhost/full_stack/symfony/web/app_dev.php/video/upload-image/" + this.video.id;
+        this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(function (result) {
+            _this.resultUpload = result;
+            console.log(_this.resultUpload);
+        }, function (error) {
+            console.log(error);
         });
     };
     VideoNewComponent = __decorate([
