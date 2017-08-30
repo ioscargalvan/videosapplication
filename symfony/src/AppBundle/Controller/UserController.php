@@ -138,7 +138,7 @@ class UserController extends Controller {
                 if ($email != null && count($validator) == 0 && $name != null && $surname != null) {
 
                     $user->setCreatedAt($createdAt);
-                    $user->setImage($image);
+                    //$user->setImage($image);
                     $user->setRole($role);
                     $user->setEmail($email);
                     $user->setName($name);
