@@ -50,6 +50,13 @@ var LoginService = (function () {
         return this._http.post(this.url + "/user/new", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    LoginService.prototype.updateUser = function (userToUpdate) {
+        var json = JSON.stringify(userToUpdate);
+        var params = "json=" + json + "&authorization=" + this.getToken();
+        var headers = new http_1.Headers({ "Content-Type": "application/x-www-form-urlencoded" });
+        return this._http.post(this.url + "/user/edit", params, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     LoginService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

@@ -58,4 +58,15 @@ export class LoginService {
 
   }
 
+  updateUser(userToUpdate) {
+
+    let json = JSON.stringify(userToUpdate);
+    let params = "json=" + json + "&authorization=" + this.getToken();
+    let headers = new Headers({"Content-Type" : "application/x-www-form-urlencoded"});
+
+    return this._http.post(this.url + "/user/edit", params, {headers: headers})
+      .map(res => res.json());
+
+  }
+
 }
