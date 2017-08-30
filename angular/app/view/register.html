@@ -5,6 +5,15 @@
 
   <form #registerForm="ngForm" (ngSubmit) = "onSubmit()" class = "col-md-4">
 
+    <div class="alert alert-success" *ngIf="status == 'success'">
+      Te has registrado correctamente, ahora puedes identificarte
+      <a [routerLink]="['/login']" style="color: white; font-weight:bold;">dando click aquí.</a>
+    </div>
+
+    <div class="alert alert-danger" *ngIf="status == 'error'">
+      No fue posible registrarte en la plataforma. Por favor, intenta de nuevo más tarde.
+    </div>
+
     <p>
       <label>Nombre</label>
       <input type="text" class = "form-control" #name="ngForm" ngControl="name" [(ngModel)] = "user.name" required/>

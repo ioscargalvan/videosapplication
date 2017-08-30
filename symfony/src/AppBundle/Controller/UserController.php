@@ -65,6 +65,8 @@ class UserController extends Controller {
                 $pwd = hash('sha256', $password);
                 $user->setPassword($pwd);
 
+
+
                 $em = $this->getDoctrine()->getManager();
                 $isset_user = $em->getRepository("BackendBundle:User")->findBy(array("email" => $email));
 
@@ -72,9 +74,15 @@ class UserController extends Controller {
                     $em->persist($user);
                     $em->flush();
 
-                    $data["status"] = "success";
-                    $data["code"] = 200;
-                    $data["msg"] = "User created.";
+                    $data = array(
+                      "status" => "success",
+                      "code" => 200,
+                      "msg" => "User created"
+                    );
+
+                    // $data["status"] = "success";
+                    // $data["code"] = 200;
+                    // $data["msg"] = "User created.";
                 } else {
                     $data = array(
                         "status" => "error",
@@ -255,7 +263,7 @@ class UserController extends Controller {
                 "items_per_page" => $items_per_page,
                 "total_pages" => ceil($total_items_count / $items_per_page),
             );
-            
+
             $data["data"]["videos"] = $pagination;
             $data["data"]["user"] = $user;
         } else {

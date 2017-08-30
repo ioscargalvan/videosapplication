@@ -22,6 +22,23 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.ngOnInit = function () {
         this.user = new user_1.User(1, "user", "", "", "", "", "");
     };
+    RegisterComponent.prototype.onSubmit = function () {
+        var _this = this;
+        console.log(this.user);
+        this._loginService.register(this.user).subscribe(function (response) {
+            console.log(response);
+            _this.status = response.status;
+            if (_this.status != "success") {
+                _this.status = "error";
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert("Error en la petición.");
+            }
+        });
+    };
     RegisterComponent = __decorate([
         core_1.Component({
             selector: 'register',
