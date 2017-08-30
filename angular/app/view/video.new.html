@@ -3,4 +3,27 @@
     <h1>{{titulo}}</h1>
   <hr>
 
+  <form #newVideoForm = "ngForm" (ngSubmit) = "onSubmit()" class = "col-md-4">
+    <p>
+      <label>Titulo</label>
+      <input type="text" placeholder="Titulo del video" class = "form-control" #title="ngForm" ngControl="title" [(ngModel)] = "video.title" required>
+      <span *ngIf="!title.valid && title.touched">El titulo del video no es válido.</span>
+    </p>
+
+    <p>
+      <label>Descripción</label>
+      <textarea class = "form-control" #description="ngForm" [(ngModel)] = "video.description">
+      </textarea>
+    </p>
+
+    <p>
+      <select class="form-control" (change)="callVideoStatus(videostatus.value)" #videostatus>
+        <option value="public" [attr.selected] = "video.status === 'public' ? selected : null">Público</option>
+        <option value="private" [attr.selected] = "video.status === 'private' ? selected : null">Privado</option>
+      </select>
+    </p>
+
+    <input type="submit" value="Crear video" class = "btn btn-info pull-right">
+  </form>
+
 </div>

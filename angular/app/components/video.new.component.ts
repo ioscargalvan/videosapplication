@@ -15,6 +15,7 @@ import {Video} from "../model/video";
 export class VideoNewComponent implements OnInit {
 
     public titulo = "Crear un nuevo video";
+    public video: Video;
 
     constructor(private _uploadService: UploadService, private _loginService: LoginService, private _route: ActivatedRoute, private _router: Router) {
 
@@ -22,6 +23,15 @@ export class VideoNewComponent implements OnInit {
 
 
   ngOnInit(){
-    console.log("Started video new component.");
+    this.video = new Video(1, "", "", "public", "null", "null", null, null);
+
+  }
+
+  callVideoStatus(value) {
+    this.video.status = value;
+  }
+
+  onSubmit() {
+    console.log(this.video);
   }
 }

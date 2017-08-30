@@ -1,8 +1,8 @@
 "use strict";
 var Video = (function () {
-    function Video(id, titulo, description, status, image, videoPath, createdAt, updatedAt) {
+    function Video(id, title, description, status, image, videoPath, createdAt, updatedAt) {
         this.id = id;
-        this.titulo = titulo;
+        this.title = title;
         this.description = description;
         this.status = status;
         this.image = image;
