@@ -8,6 +8,8 @@ export class Video {
               public videoPath,
               public createdAt,
               public updatedAt) {
-              
+
+
+
     }
 }
