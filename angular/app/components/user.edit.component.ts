@@ -19,6 +19,7 @@ export class UserEditComponent implements OnInit {
   public errorMessage;
   public status;
   public identity;
+  public newPwd;
 
   constructor(private _loginService: LoginService,
     private _route: ActivatedRoute,
@@ -45,6 +46,8 @@ export class UserEditComponent implements OnInit {
   onSubmit() {
     console.log(this.user);
 
+    this.newPwd = this.user.password;
+
     if(this.user.password == this.identity.password) {
       this.user.password = "";
     }
@@ -57,7 +60,11 @@ export class UserEditComponent implements OnInit {
         if(this.status != "success") {
           this.status = "error";
         } else {
-          this.user.password = this.identity.password;
+
+          if(this.newPwd == this.identity.password) {
+            this.user.password = this.identity.password;
+          }
+
           localStorage.setItem('identity', JSON.stringify(this.user));
         }
       },

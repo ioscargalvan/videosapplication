@@ -32,6 +32,7 @@ var UserEditComponent = (function () {
     UserEditComponent.prototype.onSubmit = function () {
         var _this = this;
         console.log(this.user);
+        this.newPwd = this.user.password;
         if (this.user.password == this.identity.password) {
             this.user.password = "";
         }
@@ -42,7 +43,9 @@ var UserEditComponent = (function () {
                 _this.status = "error";
             }
             else {
-                _this.user.password = _this.identity.password;
+                if (_this.newPwd == _this.identity.password) {
+                    _this.user.password = _this.identity.password;
+                }
                 localStorage.setItem('identity', JSON.stringify(_this.user));
             }
         }, function (error) {
