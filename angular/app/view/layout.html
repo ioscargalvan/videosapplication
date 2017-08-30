@@ -21,6 +21,13 @@
         </ul>
 
         <ul *ngIf="identity" class = "nav navbar-nav navbar-right" id = "credentials-top">
+
+          <li>
+            <a [routerLink] = "['/index']" class = "user-image">
+              <img src="http://localhost/full_stack/symfony/web/uploads/user/{{identity.image}}" alt="">
+            </a>
+          </li>
+
           <li class = "dropdown">
             <a href="#" class = "drowpdown-toggle" data-toggle="dropdown" role = "button" aria-haspopup="true" aria-expanded="false">
 
