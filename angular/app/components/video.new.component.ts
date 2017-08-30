@@ -1,7 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from "@angular/router";
 import {UploadService} from "../services/upload.service";
-import {LoginService} from "../services/login.service"
+import {VideoService} from "../services/video.service";
+import {LoginService} from "../services/login.service";
+
 import {User} from "../model/user";
 import {Video} from "../model/video";
 
@@ -9,15 +11,17 @@ import {Video} from "../model/video";
   selector: "video-new",
   templateUrl: ("app/view/video.new.html"),
   directives: [ROUTER_DIRECTIVES],
-  providers: [UploadService, LoginService]
+  providers: [UploadService, LoginService, VideoService]
 })
 
 export class VideoNewComponent implements OnInit {
 
     public titulo = "Crear un nuevo video";
-    public video: Video;
+    public video;
+    public errorMessage;
+    public status;
 
-    constructor(private _uploadService: UploadService, private _loginService: LoginService, private _route: ActivatedRoute, private _router: Router) {
+    constructor(private _uploadService: UploadService, private _loginService: LoginService, private _videoService: VideoService, private _route: ActivatedRoute, private _router: Router) {
 
     }
 
@@ -32,6 +36,26 @@ export class VideoNewComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.video);
+
+
+    let token = this._loginService.getToken();
+    this._videoService.create(token, this.video).subscribe(
+      response => {
+        this.status = response.status;
+        if(this.status != 'success') {
+          this.status = "error";
+        } else {
+          this.video = response.data;
+          console.log(this.video);
+        }
+      },
+      error => {
+        this.errorMessage = <any> error;
+        if(this.errorMessage != null) {
+          console.log(this.errorMessage);
+        }
+      }
+    );
+
   }
 }

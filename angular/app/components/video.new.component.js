@@ -11,12 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var upload_service_1 = require("../services/upload.service");
+var video_service_1 = require("../services/video.service");
 var login_service_1 = require("../services/login.service");
 var video_1 = require("../model/video");
 var VideoNewComponent = (function () {
-    function VideoNewComponent(_uploadService, _loginService, _route, _router) {
+    function VideoNewComponent(_uploadService, _loginService, _videoService, _route, _router) {
         this._uploadService = _uploadService;
         this._loginService = _loginService;
+        this._videoService = _videoService;
         this._route = _route;
         this._router = _router;
         this.titulo = "Crear un nuevo video";
@@ -28,16 +30,32 @@ var VideoNewComponent = (function () {
         this.video.status = value;
     };
     VideoNewComponent.prototype.onSubmit = function () {
-        console.log(this.video);
+        var _this = this;
+        var token = this._loginService.getToken();
+        this._videoService.create(token, this.video).subscribe(function (response) {
+            _this.status = response.status;
+            if (_this.status != 'success') {
+                _this.status = "error";
+            }
+            else {
+                _this.video = response.data;
+                console.log(_this.video);
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+            }
+        });
     };
     VideoNewComponent = __decorate([
         core_1.Component({
             selector: "video-new",
             templateUrl: ("app/view/video.new.html"),
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [upload_service_1.UploadService, login_service_1.LoginService]
+            providers: [upload_service_1.UploadService, login_service_1.LoginService, video_service_1.VideoService]
         }), 
-        __metadata('design:paramtypes', [upload_service_1.UploadService, login_service_1.LoginService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [upload_service_1.UploadService, login_service_1.LoginService, video_service_1.VideoService, router_1.ActivatedRoute, router_1.Router])
     ], VideoNewComponent);
     return VideoNewComponent;
 }());
