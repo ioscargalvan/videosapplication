@@ -22,6 +22,9 @@ var VideoService = (function () {
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this._http.post(this.url + "/video/new", params, { headers: headers }).map(function (res) { return res.json(); });
     };
+    VideoService.prototype.getVideo = function (id) {
+        return this._http.get(this.url + "/video/detail/" + id).map(function (res) { return res.json(); });
+    };
     VideoService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
