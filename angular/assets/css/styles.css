@@ -18,3 +18,12 @@
   width: 40px;
 
 }
+
+#video-player {
+  width: 100%;
+
+}
+
+.video-data {
+  margin-top: 15px;
+}

@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var video_service_1 = require("../services/video.service");
 var login_service_1 = require("../services/login.service");
+var generate_date_pipe_1 = require("../pipes/generate.date.pipe");
 var VideoDetailComponent = (function () {
     function VideoDetailComponent(_loginService, _videoService, _route, _router) {
         this._loginService = _loginService;
@@ -46,7 +47,8 @@ var VideoDetailComponent = (function () {
             selector: "video-detail",
             templateUrl: ("app/view/video.detail.html"),
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService, video_service_1.VideoService]
+            providers: [login_service_1.LoginService, video_service_1.VideoService],
+            pipes: [generate_date_pipe_1.GenerateDatePipe]
         }), 
         __metadata('design:paramtypes', [login_service_1.LoginService, video_service_1.VideoService, router_1.ActivatedRoute, router_1.Router])
     ], VideoDetailComponent);
