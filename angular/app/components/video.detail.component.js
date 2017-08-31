@@ -40,6 +40,18 @@ var VideoDetailComponent = (function () {
                     console.log(_this.errorMessage);
                 }
             });
+            _this._videoService.getLatestVideos().subscribe(function (response) {
+                _this.latestVideos = response.data;
+                _this.statusLatestVideos = response.status;
+                if (_this.statusLatestVideos != "success") {
+                    _this._router.navigate(["/index"]);
+                }
+            }, function (error) {
+                _this.errorMessage = error;
+                if (_this.errorMessage != null) {
+                    console.log(_this.errorMessage);
+                }
+            });
         });
     };
     VideoDetailComponent = __decorate([

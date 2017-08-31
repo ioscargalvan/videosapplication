@@ -20,6 +20,8 @@ export class VideoDetailComponent implements OnInit {
   public video;
   public status;
   public loading = "show";
+  public latestVideos;
+  public statusLatestVideos;
 
   constructor(private _loginService: LoginService, private _videoService: VideoService, private _route: ActivatedRoute, private _router: Router) {
 
@@ -47,6 +49,22 @@ export class VideoDetailComponent implements OnInit {
           }
         }
       )
+
+      this._videoService.getLatestVideos().subscribe(
+        response => {
+          this.latestVideos = response.data;
+          this.statusLatestVideos = response.status;
+          if(this.statusLatestVideos != "success") {
+            this._router.navigate(["/index"]);
+          }
+        },
+        error => {
+          this.errorMessage = <any> error;
+          if(this.errorMessage != null) {
+            console.log(this.errorMessage);
+          }
+        }
+      );
 
     });
   }
