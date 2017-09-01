@@ -24,6 +24,7 @@ var VideoDetailComponent = (function () {
     VideoDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._route.params.subscribe(function (params) {
+            _this.loading = 'show';
             var id = +params["id"];
             _this._videoService.getVideo(id).subscribe(function (response) {
                 _this.video = response.data;
