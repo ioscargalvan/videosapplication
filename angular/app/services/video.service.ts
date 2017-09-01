@@ -27,6 +27,6 @@ export class VideoService {
   }
 
   getLatestVideos() {
-    return this._http.get(this.url + "/video/latest-videos/").map(res => res.json());
+    return this._http.get(this.url + "/video/latest-videos").map(res => res.json());
   }
 }

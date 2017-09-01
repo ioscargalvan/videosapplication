@@ -27,3 +27,38 @@
 .video-data {
   margin-top: 15px;
 }
+
+/* Latest videos section */
+
+#videos-list {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  margin-top: 20px;
+}
+
+.latest-video-item {
+  margin-bottom: 5px;
+  font-size: 13px !important;
+}
+
+.latest-video-item .latest-video-image-thumb {
+  width: 80px;
+  height: 61px;
+  overflow: hidden;
+  background-color: gray;
+}
+
+.latest-video-image-thumb img {
+  width: 80px;
+  margin-left: -15px;
+  margin-top: -5px;
+}
+
+.latest-video-item .data {
+  border: 1px solid #ddd !important;
+  border-left: 0px !important;
+  border-radius: 0px 4px 4px 0px;
+  margin-top: -1px;
+  height: 62px;
+}
