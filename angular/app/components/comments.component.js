@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var login_service_1 = require("../services/login.service");
 var comment_service_1 = require("../services/comment.service");
+var generate_date_pipe_1 = require("../pipes/generate.date.pipe");
 var CommentsComponent = (function () {
     function CommentsComponent(_loginService, _route, _router, _commentService) {
         this._loginService = _loginService;
@@ -30,6 +31,7 @@ var CommentsComponent = (function () {
                 "body": ""
             };
             // Get comments
+            _this.getComments(id);
         });
     };
     CommentsComponent.prototype.onSubmit = function () {
@@ -43,6 +45,7 @@ var CommentsComponent = (function () {
             }
             else {
                 // Reload comments.
+                _this.getComments(_this.comment.video_id);
                 _this.comment.body = "";
                 console.log(response);
             }
@@ -53,12 +56,26 @@ var CommentsComponent = (function () {
             }
         });
     };
+    CommentsComponent.prototype.getComments = function (video_id) {
+        var _this = this;
+        this._commentService.getCommentsOfVideo(video_id).subscribe(function (response) {
+            _this.status = response.status;
+            if (_this.status != "success") {
+                _this.status = "error";
+            }
+            else {
+                _this.commentList = response.data;
+            }
+        }, function (error) {
+        });
+    };
     CommentsComponent = __decorate([
         core_1.Component({
             selector: "comments",
             templateUrl: ("app/view/comments.html"),
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService, login_service_1.LoginService, comment_service_1.CommentService]
+            providers: [login_service_1.LoginService, login_service_1.LoginService, comment_service_1.CommentService],
+            pipes: [generate_date_pipe_1.GenerateDatePipe]
         }), 
         __metadata('design:paramtypes', [login_service_1.LoginService, router_1.ActivatedRoute, router_1.Router, comment_service_1.CommentService])
     ], CommentsComponent);

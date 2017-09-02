@@ -8,7 +8,7 @@ export class GenerateDatePipe implements PipeTransform {
 
   transform(value): string {
     let date = new Date(value * 1000);
-    let day = date.getDay();
+    let day = date.getDate();
     let final_day = day.toString();
     if(day <= 9) {
       final_day = "0" + day;

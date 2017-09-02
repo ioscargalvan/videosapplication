@@ -14,7 +14,7 @@ var GenerateDatePipe = (function () {
     }
     GenerateDatePipe.prototype.transform = function (value) {
         var date = new Date(value * 1000);
-        var day = date.getDay();
+        var day = date.getDate();
         var final_day = day.toString();
         if (day <= 9) {
             final_day = "0" + day;
