@@ -11,23 +11,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var login_service_1 = require("../services/login.service");
+var video_service_1 = require("../services/video.service");
 var DefaultComponent = (function () {
-    function DefaultComponent(_loginService) {
+    function DefaultComponent(_loginService, _videoService, _route, _router) {
         this._loginService = _loginService;
+        this._videoService = _videoService;
+        this._route = _route;
+        this._router = _router;
         this.titulo = "Portada";
     }
     DefaultComponent.prototype.ngOnInit = function () {
         this.identity = this._loginService.getIdentity();
         console.log(this.identity);
+        this.getAllVideos();
+    };
+    DefaultComponent.prototype.getAllVideos = function () {
+        var _this = this;
+        this._route.params.subscribe(function (params) {
+            var page = +params["page"];
+            if (!page) {
+                page = 1;
+            }
+            _this._videoService.getVideos(page).subscribe(function (response) {
+                _this.status = response.status;
+                if (_this.status != 'success') {
+                    _this.status = "error";
+                }
+                else {
+                    _this.videos = response.data;
+                    console.log(_this.videos);
+                }
+            }, function (error) {
+                _this.errorMessage = error;
+                if (_this.errorMessage != null) {
+                    console.log(_this.errorMessage);
+                }
+            });
+        });
     };
     DefaultComponent = __decorate([
         core_1.Component({
             selector: 'default',
             templateUrl: "app/view/default.html",
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService]
+            providers: [login_service_1.LoginService, video_service_1.VideoService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService])
+        __metadata('design:paramtypes', [login_service_1.LoginService, video_service_1.VideoService, router_1.ActivatedRoute, router_1.Router])
     ], DefaultComponent);
     return DefaultComponent;
 }());
