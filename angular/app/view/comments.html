@@ -20,6 +20,10 @@
 
 <hr>
 
+<div class="loader">
+  <img src="assets/images/ajax-gray.gif" class = "center-block" *ngIf="loading == 'show'">
+</div>
+
 <div id = "comments-list" *ngIf="commentList">
 
   <div *ngFor="let comment of commentList" class = "comment-item col-md-12 pull-left">
@@ -31,6 +35,11 @@
       <div class="panel-body">
         {{comment.body}}
       </div>
+
+      <div class="pull-right" *ngIf="identity.sub == comment.user.id || identity.sub == comment.video.user.id">
+        <span class = "glyphicon glyphicon-trash pointer" aria-hidden="true" (click) = "deleteComment(comment.id)"></span>
+      </div>
+      <div class="clearfix"></div>
     </div>
   </div>
 

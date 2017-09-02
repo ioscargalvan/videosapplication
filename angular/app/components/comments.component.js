@@ -20,6 +20,7 @@ var CommentsComponent = (function () {
         this._router = _router;
         this._commentService = _commentService;
         this.titulo = "Comentarios";
+        this.loading = 'show';
     }
     CommentsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -36,6 +37,7 @@ var CommentsComponent = (function () {
     };
     CommentsComponent.prototype.onSubmit = function () {
         var _this = this;
+        this.loading = 'show';
         console.log(this.comment);
         var token = this._loginService.getToken();
         this._commentService.create(token, this.comment).subscribe(function (response) {
@@ -58,6 +60,7 @@ var CommentsComponent = (function () {
     };
     CommentsComponent.prototype.getComments = function (video_id) {
         var _this = this;
+        this.loading = 'show';
         this._commentService.getCommentsOfVideo(video_id).subscribe(function (response) {
             _this.status = response.status;
             if (_this.status != "success") {
@@ -66,7 +69,31 @@ var CommentsComponent = (function () {
             else {
                 _this.commentList = response.data;
             }
+            _this.loading = 'hide';
         }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+            }
+        });
+    };
+    CommentsComponent.prototype.deleteComment = function (id) {
+        var _this = this;
+        var comment_panel = document.querySelector(".comment-panel-" + id);
+        if (comment_panel != null) {
+            comment_panel.style.display = "none";
+        }
+        var token = this._loginService.getToken();
+        this._commentService.delete(token, id).subscribe(function (response) {
+            _this.status = response.status;
+            if (_this.status != "success") {
+                _this.status = "error";
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+            }
         });
     };
     CommentsComponent = __decorate([

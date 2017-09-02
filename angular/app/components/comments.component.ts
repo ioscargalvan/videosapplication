@@ -22,7 +22,7 @@ export class CommentsComponent implements OnInit {
   public errorMessage;
   public status;
   public commentList;
-
+  public loading = 'show';
 
   constructor(
     private _loginService: LoginService,
@@ -52,6 +52,7 @@ export class CommentsComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = 'show';
     console.log(this.comment);
     let token = this._loginService.getToken();
     this._commentService.create(token, this.comment).subscribe(
@@ -78,6 +79,7 @@ export class CommentsComponent implements OnInit {
   }
 
   getComments(video_id) {
+    this.loading = 'show';
     this._commentService.getCommentsOfVideo(video_id).subscribe(
       response => {
         this.status = response.status;
@@ -85,10 +87,39 @@ export class CommentsComponent implements OnInit {
           this.status = "error";
         } else {
           this.commentList = response.data;
+
+        }
+
+        this.loading = 'hide';
+      },
+      error => {
+        this.errorMessage = <any> error;
+        if(this.errorMessage != null) {
+          console.log(this.errorMessage);
+        }
+      }
+    )
+  }
+
+  deleteComment(id) {
+    let comment_panel = <HTMLElement> document.querySelector(".comment-panel-" + id);
+    if(comment_panel != null) {
+      comment_panel.style.display = "none";
+    }
+
+    let token = this._loginService.getToken();
+    this._commentService.delete(token, id).subscribe(
+      response => {
+        this.status = response.status;
+        if(this.status != "success") {
+          this.status = "error";
         }
       },
       error => {
-
+        this.errorMessage = <any> error;
+        if(this.errorMessage != null) {
+          console.log(this.errorMessage);
+        }
       }
     )
   }
