@@ -77,7 +77,7 @@ var VideoNewComponent = (function () {
         });
     };
     VideoNewComponent.prototype.redirectToVideo = function () {
-        this._router.navigate(['/index']);
+        this._router.navigate(['/video', this.video.id]);
     };
     VideoNewComponent = __decorate([
         core_1.Component({
