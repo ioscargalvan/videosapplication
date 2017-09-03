@@ -100,6 +100,9 @@ var VideoEditComponent = (function () {
     VideoEditComponent.prototype.redirectToVideo = function () {
         this._router.navigate(['/video', this.video.id]);
     };
+    VideoEditComponent.prototype.setChangeUpload = function (value) {
+        this.changeUpload = value;
+    };
     VideoEditComponent = __decorate([
         core_1.Component({
             selector: "video-edit",

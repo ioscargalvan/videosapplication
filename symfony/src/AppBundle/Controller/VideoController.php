@@ -186,6 +186,7 @@ class VideoController extends Controller {
         $authCheck = $helpers->authCheck($hash);
 
 
+
         if ($authCheck) {
             $identity = $helpers->authCheck($hash, true);
             $video_id = $id;
@@ -226,8 +227,13 @@ class VideoController extends Controller {
                         );
                     }
                 } else {
+
                     if ($file_video != null && !empty($file_video)) {
+
                         $ext = $file_video->guessExtension();
+
+
+
 
                         if ($ext == "mp4" || $ext == "avi") {
                             $file_name = time() . "." . $ext;
@@ -352,7 +358,7 @@ class VideoController extends Controller {
             $query = $em->createQuery($dql);
         }
 
-        
+
 
         $page = $request->query->getInt("page", 1);
         $paginator = $this->get("knp_paginator");

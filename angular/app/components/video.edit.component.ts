@@ -21,6 +21,7 @@ export class VideoEditComponent implements OnInit {
     public status;
     public uploadedImage;
     public status_get_video;
+    public changeUpload;
 
     constructor(private _uploadService: UploadService, private _loginService: LoginService, private _videoService: VideoService, private _route: ActivatedRoute, private _router: Router) {
       this.uploadedImage = false;
@@ -129,5 +130,9 @@ export class VideoEditComponent implements OnInit {
 
   redirectToVideo() {
     this._router.navigate(['/video', this.video.id]);
+  }
+
+  setChangeUpload(value: string) {
+    this.changeUpload = value;
   }
 }

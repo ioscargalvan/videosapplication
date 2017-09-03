@@ -35,9 +35,10 @@
     <input type="submit" value="Actualizar video" class = "btn btn-info pull-right" [disabled]="!updateVideoForm.form.valid">
   </form>
 
-  <div class="col-md-4" *ngIf="status == 'success' && uploadedImage == false">
+  <button class = "btn btn-warning" *ngIf="!changeUpload || changeUpload == 'video' || changeUpload == 'false'" (click) = "setChangeUpload('image')">Editar imagen</button>
+
+  <div class="col-md-4" *ngIf="changeUpload == 'image'">
     <h4>Imagen del video</h4>
-    <p>Paso 2 de 3. Sube la imagen del video.</p>
 
     <p>
       <input type = "file" placeholder = "Subir imagen..." (change) = "fileChangeEventImage($event)">
@@ -49,12 +50,13 @@
     </div>
     <p id = "status"></p>
 
-    <button class = "btn btn-default" (click) = "nextUploadVideo()">Continuar y subir el video</button>
+    <button class = "btn btn-info" (click) = "setChangeUpload('false')">Cerrar</button>
   </div>
 
-  <div class="col-md-4" *ngIf="status == 'success' && uploadedImage == true">
+  <button class = "btn btn-warning" *ngIf="!changeUpload || changeUpload == 'image' || changeUpload == 'false'" (click) = "setChangeUpload('video')">Editar video</button>
+
+  <div class="col-md-4" *ngIf="changeUpload=='video'">
     <h4>Sube el video</h4>
-    <p>Paso 3 de 3. Sube tu video.</p>
 
     <p>
       <input type = "file" placeholder = "Subir video..." (change) = "fileChangeEventVideo($event)">
@@ -66,7 +68,7 @@
     </div>
     <p id = "status"></p>
 
-    <button class = "btn btn-default" (click) = "redirectToVideo()">Continuar y ver el resultado.</button>
+    <button class = "btn btn-info" (click) = "setChangeUpload('false')">Cerrar</button>
   </div>
 
 
