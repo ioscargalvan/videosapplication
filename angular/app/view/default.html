@@ -14,7 +14,12 @@
   <hr/>
 
   <div class="all-videos">
-    <ul id = "videos-list" *ngIf="videos">
+
+    <div class="loader" *ngIf = "loading == 'show'">
+      <img src="assets/images/ajax-gray.gif" class = "center-block" alt="">
+    </div>
+
+    <ul id = "videos-list" *ngIf="videos && loading == 'hide'">
       <li *ngFor="let video of videos" class = "video-item col-md-4 pull-left">
 
         <div class="video-image-thumb">
@@ -39,5 +44,29 @@
       </li>
     </ul>
   </div>
+
+  <div class="clearfix"></div>
+
+
+
+<div class="text-center">
+  <ul class = "pagination">
+    <li>
+      <a [routerLink] = "['/index', pagePrev]" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    <li *ngFor="let page of pages">
+      <a [routerLink] = "['/index', page + 1]">{{page + 1}}</a>
+    </li>
+
+    <li>
+      <a [routerLink] = "['/index', pageNext]" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</div>
 
 </div>
