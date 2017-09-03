@@ -14,7 +14,7 @@
   <hr/>
 
   <div class="all-videos">
-    <ul id = "video-list" *ngIf="videos">
+    <ul id = "videos-list" *ngIf="videos">
       <li *ngFor="let video of videos" class = "video-item col-md-4 pull-left">
 
         <div class="video-image-thumb">
@@ -23,8 +23,19 @@
 
         <div class="data">
           <h4><a [routerLink] = "['/video', video.id]">{{video.title}}</a></h4>
-          <p>{{video.description}}</p>
+          <p>Subido por <a [routerLink] = "['/index']">{{video.user.name}} {{video.user.surname}}</a></p>
+
+          <div class="video-buttons" *ngIf="identity && identity!=null && identity.sub == video.user.id">
+            <a [routerLink] = "['/index']" class = "btn btn-primary pull-right">Editar</a>
+          </div>
+
         </div>
+
+        <div class="clearfix">
+
+        </div>
+
+
       </li>
     </ul>
   </div>
