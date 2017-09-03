@@ -31,7 +31,7 @@
           <p>Subido por <a [routerLink] = "['/index']">{{video.user.name}} {{video.user.surname}}</a></p>
 
           <div class="video-buttons" *ngIf="identity && identity!=null && identity.sub == video.user.id">
-            <a [routerLink] = "['/index']" class = "btn btn-primary pull-right">Editar</a>
+            <a [routerLink] = "['/edit-video', video.id]" class = "btn btn-primary pull-right">Editar</a>
           </div>
 
         </div>

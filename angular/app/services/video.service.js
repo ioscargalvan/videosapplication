@@ -22,6 +22,12 @@ var VideoService = (function () {
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this._http.post(this.url + "/video/new", params, { headers: headers }).map(function (res) { return res.json(); });
     };
+    VideoService.prototype.update = function (token, video, id) {
+        var json = JSON.stringify(video);
+        var params = "json=" + json + "&authorization=" + token;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.post(this.url + "/video/edit/" + id, params, { headers: headers }).map(function (res) { return res.json(); });
+    };
     VideoService.prototype.getVideo = function (id) {
         return this._http.get(this.url + "/video/detail/" + id).map(function (res) { return res.json(); });
     };

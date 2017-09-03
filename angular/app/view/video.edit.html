@@ -4,16 +4,14 @@
   <hr>
 
   <div class="alert alert-success" *ngIf="status == 'success'">
-      Datos básicos de tu nuevo vídeo <strong>{{video.title}}</strong> guardados, ahora añade una imagen y un video.
+      Datos básicos de tu vídeo <strong>{{video.title}}</strong> guardados.
   </div>
 
   <div class="alert alert-danger" *ngIf="status == 'error'">
-    No pudimos guardar los datos de tu nuevo video <strong>{{video.title}}</strong>, por favor intenta de nuevo más tarde.
+    No pudimos guardar los datos de tu video <strong>{{video.title}}</strong>, por favor intenta de nuevo más tarde.
   </div>
 
-  <form #newVideoForm = "ngForm" (ngSubmit) = "onSubmit()" class = "col-md-4" *ngIf="status != 'success'">
-
-    <p>Paso 1 de 3. Añade la información básica de tu video.</p>
+  <form #updateVideoForm = "ngForm" (ngSubmit) = "onSubmit()" class = "col-md-4">
 
     <p>
       <label>Titulo</label>
@@ -29,12 +27,12 @@
 
     <p>
       <select class="form-control" (change)="callVideoStatus(videostatus.value)" #videostatus>
-        <option value="public" [attr.selected] = "video.status === 'public' ? 'selected' : null">Público</option>
+        <option value="public" [attr.selected] = "video.status == 'public' ? 'selected' : null">Público</option>
         <option value="private" [attr.selected] = "video.status === 'private' ? 'selected' : null">Privado</option>
       </select>
     </p>
 
-    <input type="submit" value="Crear video" class = "btn btn-info pull-right">
+    <input type="submit" value="Actualizar video" class = "btn btn-info pull-right" [disabled]="!updateVideoForm.form.valid">
   </form>
 
   <div class="col-md-4" *ngIf="status == 'success' && uploadedImage == false">

@@ -8,6 +8,7 @@ import {DefaultComponent} from './components/default.component';
 import {UserEditComponent} from './components/user.edit.component';
 import {VideoNewComponent} from "./components/video.new.component";
 import {VideoDetailComponent} from "./components/video.detail.component";
+import {VideoEditComponent} from "./components/video.edit.component";
 
 export const routes: RouterConfig = [
   {path: '', redirectTo: '/index', terminal: true},
@@ -18,7 +19,8 @@ export const routes: RouterConfig = [
   {path: 'register', component: RegisterComponent},
   {path: 'user-edit', component: UserEditComponent},
   {path: 'create-video', component: VideoNewComponent},
-  {path: 'video/:id', component: VideoDetailComponent}
+  {path: 'video/:id', component: VideoDetailComponent},
+  {path: 'edit-video/:id', component: VideoEditComponent}
 ];
 
 export const APP_ROUTER_PROVIDERS = [
