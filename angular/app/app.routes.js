@@ -8,6 +8,7 @@ var video_new_component_1 = require("./components/video.new.component");
 var video_detail_component_1 = require("./components/video.detail.component");
 var video_edit_component_1 = require("./components/video.edit.component");
 var search_component_1 = require("./components/search.component");
+var channel_component_1 = require("./components/channel.component");
 exports.routes = [
     { path: '', redirectTo: '/index', terminal: true },
     { path: 'index', component: default_component_1.DefaultComponent },
@@ -21,7 +22,10 @@ exports.routes = [
     { path: 'edit-video/:id', component: video_edit_component_1.VideoEditComponent },
     { path: 'search', component: search_component_1.SearchComponent },
     { path: 'search/:search', component: search_component_1.SearchComponent },
-    { path: 'search/:search/:page', component: search_component_1.SearchComponent }
+    { path: 'search/:search/:page', component: search_component_1.SearchComponent },
+    { path: 'channel', component: channel_component_1.ChannelComponent },
+    { path: 'channel/:user', component: channel_component_1.ChannelComponent },
+    { path: 'channel/:user/:page', component: channel_component_1.ChannelComponent }
 ];
 exports.APP_ROUTER_PROVIDERS = [
     router_1.provideRouter(exports.routes)

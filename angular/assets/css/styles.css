@@ -105,3 +105,21 @@
   border-top: 0px;
   height: 130px;
 }
+
+/* User channel */
+.channel-head {
+  text-align: center;
+}
+
+.image-channel {
+  width: 150px;
+  height: 150px;
+  border-radius: 500px;
+  overflow: hidden;
+  margin: 0px auto;
+  background: #ccc;
+}
+
+.image-channel img {
+  height: 160px;
+}
