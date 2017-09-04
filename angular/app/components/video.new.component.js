@@ -25,7 +25,14 @@ var VideoNewComponent = (function () {
         this.uploadedImage = false;
     }
     VideoNewComponent.prototype.ngOnInit = function () {
-        this.video = new video_1.Video(1, "", "", "public", "null", "null", null, null);
+        var identity = this._loginService.getIdentity();
+        this.identity = identity;
+        if (identity == null) {
+            this._router.navigate(['/index']);
+        }
+        else {
+            this.video = new video_1.Video(1, "", "", "public", "null", "null", null, null);
+        }
     };
     VideoNewComponent.prototype.callVideoStatus = function (value) {
         this.video.status = value;
