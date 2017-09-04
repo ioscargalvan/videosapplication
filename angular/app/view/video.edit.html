@@ -1,4 +1,8 @@
-<div class="col-md-12">
+<div class="loader" *ngIf = "loading == 'show'">
+  <img src="assets/images/ajax-gray.gif" class = "center-block" alt="">
+</div>
+
+<div class="col-md-12" *ngIf= "identity && video && video.user && video.user.id">
   <hr>
     <h1>{{titulo}}</h1>
   <hr>

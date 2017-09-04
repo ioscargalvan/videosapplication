@@ -22,6 +22,8 @@ export class VideoEditComponent implements OnInit {
     public uploadedImage;
     public status_get_video;
     public changeUpload;
+    public identity;
+    public loading;
 
     constructor(private _uploadService: UploadService, private _loginService: LoginService, private _videoService: VideoService, private _route: ActivatedRoute, private _router: Router) {
       this.uploadedImage = false;
@@ -29,8 +31,12 @@ export class VideoEditComponent implements OnInit {
 
 
   ngOnInit(){
+    this.loading = "show";
     this.video = new Video(1, "", "", "public", "null", "null", null, null);
     this.getVideo();
+
+    this.identity = this._loginService.getIdentity();
+
 
   }
 
@@ -67,6 +73,8 @@ export class VideoEditComponent implements OnInit {
     this._route.params.subscribe(params => {
       let id = +params["id"];
 
+      this.loading = 'show';
+
       this._videoService.getVideo(id).subscribe(
         response => {
           this.video = response.data;
@@ -79,6 +87,15 @@ export class VideoEditComponent implements OnInit {
             console.log(response);
             this.status_get_video = "error";
           }
+
+
+          if(this.identity && this.identity!=null && this.identity.sub == this.video.user.id) {
+
+          } else {
+            this._router.navigate(["/index"]);
+          }
+
+          this.loading = "hide";
 
         },
         error => {
