@@ -44,15 +44,17 @@
 
 .latest-video-item .latest-video-image-thumb {
   width: 80px;
-  height: 61px;
+  height: 81px;
+  margin-top: -1px;
   overflow: hidden;
   background-color: gray;
+  border-radius: 4px 0px 0px 4px;
 }
 
 .latest-video-image-thumb img {
-  width: 80px;
-  margin-left: -15px;
-  margin-top: -5px;
+  width: 120px;
+  margin-left: -37px;
+  /*margin-top: -5px;*/
 }
 
 .latest-video-item .data {
@@ -60,7 +62,7 @@
   border-left: 0px !important;
   border-radius: 0px 4px 4px 0px;
   margin-top: -1px;
-  height: 62px;
+  height: 82px;
 }
 
 /* Comments */
@@ -95,7 +97,7 @@
 
 .video-image-thumb img {
   width: 100%;
-  margin-top: -45px;
+  margin-top: -27px;
 }
 
 .video-item .data {
