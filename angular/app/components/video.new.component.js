@@ -14,15 +14,18 @@ var upload_service_1 = require("../services/upload.service");
 var video_service_1 = require("../services/video.service");
 var login_service_1 = require("../services/login.service");
 var video_1 = require("../model/video");
+var urls_1 = require("../urls");
 var VideoNewComponent = (function () {
-    function VideoNewComponent(_uploadService, _loginService, _videoService, _route, _router) {
+    function VideoNewComponent(_uploadService, _urls, _loginService, _videoService, _route, _router) {
         this._uploadService = _uploadService;
+        this._urls = _urls;
         this._loginService = _loginService;
         this._videoService = _videoService;
         this._route = _route;
         this._router = _router;
         this.titulo = "Crear un nuevo video";
         this.uploadedImage = false;
+        this.mainUrl = _urls.getMainUrl();
     }
     VideoNewComponent.prototype.ngOnInit = function () {
         var identity = this._loginService.getIdentity();
@@ -60,7 +63,7 @@ var VideoNewComponent = (function () {
         var _this = this;
         this.filesToUpload = fileInput.target.files;
         var token = this._loginService.getToken();
-        var url = "http://localhost/full_stack/symfony/web/app_dev.php/video/upload-image/" + this.video.id;
+        var url = this.mainUrl + "video/upload-image/" + this.video.id;
         this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(function (result) {
             _this.resultUpload = result;
             console.log(_this.resultUpload);
@@ -75,7 +78,7 @@ var VideoNewComponent = (function () {
         var _this = this;
         this.filesToUpload = fileInput.target.files;
         var token = this._loginService.getToken();
-        var url = "http://localhost/full_stack/symfony/web/app_dev.php/video/upload-video/" + this.video.id;
+        var url = this.mainUrl + "video/upload-video/" + this.video.id;
         this._uploadService.makeFileRequest(token, url, ['video'], this.filesToUpload).then(function (result) {
             _this.resultUpload = result;
             console.log(_this.resultUpload);
@@ -91,9 +94,9 @@ var VideoNewComponent = (function () {
             selector: "video-new",
             templateUrl: ("app/view/video.new.html"),
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [upload_service_1.UploadService, login_service_1.LoginService, video_service_1.VideoService]
+            providers: [upload_service_1.UploadService, login_service_1.LoginService, video_service_1.VideoService, urls_1.Urls]
         }), 
-        __metadata('design:paramtypes', [upload_service_1.UploadService, login_service_1.LoginService, video_service_1.VideoService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [upload_service_1.UploadService, urls_1.Urls, login_service_1.LoginService, video_service_1.VideoService, router_1.ActivatedRoute, router_1.Router])
     ], VideoNewComponent);
     return VideoNewComponent;
 }());

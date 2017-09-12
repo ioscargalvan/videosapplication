@@ -5,12 +5,13 @@ import {VideoService} from "../services/video.service";
 import {LoginService} from "../services/login.service";
 import {User} from "../model/user";
 import {Video} from "../model/video";
+import {Urls} from "../urls";
 
 @Component({
   selector: "video-edit",
   templateUrl: ("app/view/video.edit.html"),
   directives: [ROUTER_DIRECTIVES],
-  providers: [UploadService, LoginService, VideoService]
+  providers: [UploadService, LoginService, VideoService, Urls]
 })
 
 export class VideoEditComponent implements OnInit {
@@ -24,9 +25,11 @@ export class VideoEditComponent implements OnInit {
     public changeUpload;
     public identity;
     public loading;
+    public mainUrl;
 
-    constructor(private _uploadService: UploadService, private _loginService: LoginService, private _videoService: VideoService, private _route: ActivatedRoute, private _router: Router) {
+    constructor(private _uploadService: UploadService, private _urls: Urls, private _loginService: LoginService, private _videoService: VideoService, private _route: ActivatedRoute, private _router: Router) {
       this.uploadedImage = false;
+      this.mainUrl = _urls.getMainUrl();
     }
 
 
@@ -114,7 +117,7 @@ export class VideoEditComponent implements OnInit {
   fileChangeEventImage(fileInput: any) {
     this.filesToUpload = <Array<File>> fileInput.target.files;
     let token = this._loginService.getToken();
-    let url = "http://localhost/full_stack/symfony/web/app_dev.php/video/upload-image/" + this.video.id;
+    let url = this.mainUrl + "video/upload-image/" + this.video.id;
     this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(
       (result) => {
         this.resultUpload = result;
@@ -133,7 +136,8 @@ export class VideoEditComponent implements OnInit {
   fileChangeEventVideo(fileInput: any) {
     this.filesToUpload = <Array<File>> fileInput.target.files;
     let token = this._loginService.getToken();
-    let url = "http://localhost/full_stack/symfony/web/app_dev.php/video/upload-video/" + this.video.id;
+
+    let url = this.mainUrl + "video/upload-video/" + this.video.id;
     this._uploadService.makeFileRequest(token, url, ['video'], this.filesToUpload).then(
       (result) => {
         this.resultUpload = result;

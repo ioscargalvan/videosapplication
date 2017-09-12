@@ -11,16 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
+var urls_1 = require("../urls");
 var LoginService = (function () {
-    function LoginService(_http) {
+    function LoginService(_http, _urls) {
         this._http = _http;
-        this.url = "http://localhost/full_stack/symfony/web/app_dev.php";
+        this._urls = _urls;
+        this.url = _urls.getMainUrl();
     }
     LoginService.prototype.signup = function (userToLogin) {
         var json = JSON.stringify(userToLogin);
         var params = "json=" + json;
         var headers = new http_1.Headers({ "Content-Type": "application/x-www-form-urlencoded" });
-        return this._http.post(this.url + "/login", params, { headers: headers })
+        return this._http.post(this.url + "login", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     LoginService.prototype.getIdentity = function () {
@@ -47,19 +49,19 @@ var LoginService = (function () {
         var json = JSON.stringify(userToRegister);
         var params = "json=" + json;
         var headers = new http_1.Headers({ "Content-Type": "application/x-www-form-urlencoded" });
-        return this._http.post(this.url + "/user/new", params, { headers: headers })
+        return this._http.post(this.url + "user/new", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     LoginService.prototype.updateUser = function (userToUpdate) {
         var json = JSON.stringify(userToUpdate);
         var params = "json=" + json + "&authorization=" + this.getToken();
         var headers = new http_1.Headers({ "Content-Type": "application/x-www-form-urlencoded" });
-        return this._http.post(this.url + "/user/edit", params, { headers: headers })
+        return this._http.post(this.url + "user/edit", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     LoginService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, urls_1.Urls])
     ], LoginService);
     return LoginService;
 }());

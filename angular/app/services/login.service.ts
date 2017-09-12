@@ -2,16 +2,18 @@ import {Injectable} from "@angular/core";
 import {Http, Response, Headers} from "@angular/http";
 import "rxjs/add/operator/map";
 import {Observable} from "rxjs/Observable";
+import {Urls} from "../urls";
 
 @Injectable()
 export class LoginService {
 
-  public url = "http://localhost/full_stack/symfony/web/app_dev.php";
+   public url;
+//  public url = "http://ioscargalvan.xyz/videos/web/app.php";
   public identity;
   public token;
 
-  constructor(private _http: Http){
-
+  constructor(private _http: Http, private _urls: Urls){
+    this.url = _urls.getMainUrl();
   }
 
   signup(userToLogin) {
@@ -20,7 +22,7 @@ export class LoginService {
     let params = "json=" + json;
     let headers = new Headers({"Content-Type" : "application/x-www-form-urlencoded"});
 
-    return this._http.post(this.url + "/login", params, {headers: headers})
+    return this._http.post(this.url + "login", params, {headers: headers})
       .map(res => res.json());
 
   }
@@ -53,7 +55,7 @@ export class LoginService {
     let params = "json=" + json;
     let headers = new Headers({"Content-Type" : "application/x-www-form-urlencoded"});
 
-    return this._http.post(this.url + "/user/new", params, {headers: headers})
+    return this._http.post(this.url + "user/new", params, {headers: headers})
       .map(res => res.json());
 
   }
@@ -64,7 +66,7 @@ export class LoginService {
     let params = "json=" + json + "&authorization=" + this.getToken();
     let headers = new Headers({"Content-Type" : "application/x-www-form-urlencoded"});
 
-    return this._http.post(this.url + "/user/edit", params, {headers: headers})
+    return this._http.post(this.url + "user/edit", params, {headers: headers})
       .map(res => res.json());
 
   }

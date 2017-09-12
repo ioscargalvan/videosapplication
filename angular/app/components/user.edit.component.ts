@@ -3,6 +3,8 @@ import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 import {LoginService} from "../services/login.service";
 import {UploadService} from "../services/upload.service";
 import {User} from '../model/user';
+import {isDevMode} from "@angular/core";
+import {Urls} from "../urls";
 
 
 @Component({
@@ -22,11 +24,18 @@ export class UserEditComponent implements OnInit {
   public identity;
   public newPwd;
 
+  public mainUrl;
+
   constructor(private _loginService: LoginService,
     private _uploadService: UploadService,
     private _route: ActivatedRoute,
-    private _router: Router
-  ) {}
+    private _router: Router,
+    private _urls: Urls
+  ) {
+
+    this.mainUrl = _urls.getMainUrl();
+
+  }
 
   ngOnInit() {
     let identity = this._loginService.getIdentity();
@@ -87,7 +96,8 @@ export class UserEditComponent implements OnInit {
     console.log("Change event launched");
     this.filesToUpload = <Array<File>> fileInput.target.files;
     let token = this._loginService.getToken();
-    let url = "http://localhost/full_stack/symfony/web/app_dev.php/user/upload-image-user";
+    //let url = "http://localhost/full_stack/symfony/web/app_dev.php/user/upload-image-user";
+    let url = this.mainUrl + "user/upload-image-user";
     this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(
       (result) => {
         this.resultUpload = result;

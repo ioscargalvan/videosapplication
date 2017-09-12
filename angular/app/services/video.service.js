@@ -11,35 +11,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
+var urls_1 = require("../urls");
 var VideoService = (function () {
-    function VideoService(_http) {
+    function VideoService(_http, _urls) {
         this._http = _http;
-        this.url = "http://localhost/full_stack/symfony/web/app_dev.php";
+        this._urls = _urls;
+        this.url = _urls.getMainUrl();
     }
     VideoService.prototype.create = function (token, video) {
         var json = JSON.stringify(video);
         var params = "json=" + json + "&authorization=" + token;
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        return this._http.post(this.url + "/video/new", params, { headers: headers }).map(function (res) { return res.json(); });
+        return this._http.post(this.url + "video/new", params, { headers: headers }).map(function (res) { return res.json(); });
     };
     VideoService.prototype.update = function (token, video, id) {
         var json = JSON.stringify(video);
         var params = "json=" + json + "&authorization=" + token;
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        return this._http.post(this.url + "/video/edit/" + id, params, { headers: headers }).map(function (res) { return res.json(); });
+        return this._http.post(this.url + "video/edit/" + id, params, { headers: headers }).map(function (res) { return res.json(); });
     };
     VideoService.prototype.getVideo = function (id) {
-        return this._http.get(this.url + "/video/detail/" + id).map(function (res) { return res.json(); });
+        return this._http.get(this.url + "video/detail/" + id).map(function (res) { return res.json(); });
     };
     VideoService.prototype.getLatestVideos = function () {
-        return this._http.get(this.url + "/video/latest-videos").map(function (res) { return res.json(); });
+        return this._http.get(this.url + "video/latest-videos").map(function (res) { return res.json(); });
     };
     VideoService.prototype.getVideos = function (page) {
         if (page === void 0) { page = null; }
         if (page == null) {
             page = 1;
         }
-        return this._http.get(this.url + "/video/list?page=" + page).map(function (res) { return res.json(); });
+        return this._http.get(this.url + "video/list?page=" + page).map(function (res) { return res.json(); });
     };
     VideoService.prototype.search = function (search, page) {
         if (search === void 0) { search = null; }
@@ -49,10 +51,10 @@ var VideoService = (function () {
         }
         var http;
         if (search == null) {
-            http = this._http.get(this.url + "/video/search").map(function (res) { return res.json(); });
+            http = this._http.get(this.url + "video/search").map(function (res) { return res.json(); });
         }
         else {
-            http = this._http.get(this.url + "/video/search/" + search + "?page=" + page).map(function (res) { return res.json(); });
+            http = this._http.get(this.url + "video/search/" + search + "?page=" + page).map(function (res) { return res.json(); });
         }
         return http;
     };
@@ -61,11 +63,11 @@ var VideoService = (function () {
         if (page == null) {
             page = 1;
         }
-        return this._http.get(this.url + "/user/channel/" + user + "?page=" + page).map(function (res) { return res.json(); });
+        return this._http.get(this.url + "user/channel/" + user + "?page=" + page).map(function (res) { return res.json(); });
     };
     VideoService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, urls_1.Urls])
     ], VideoService);
     return VideoService;
 }());

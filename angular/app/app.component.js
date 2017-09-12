@@ -12,11 +12,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var login_service_1 = require("./services/login.service");
+var core_2 = require("@angular/core");
+var urls_1 = require("./urls");
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var AppComponent = (function () {
-    function AppComponent(_loginService, _router) {
+    function AppComponent(_loginService, _router, _urls) {
         this._loginService = _loginService;
         this._router = _router;
+        this._urls = _urls;
+        console.log(core_2.isDevMode());
+        console.log(_urls.getMainUrl());
     }
     AppComponent.prototype.ngOnInit = function () {
         this.identity = this._loginService.getIdentity();
@@ -35,9 +40,9 @@ var AppComponent = (function () {
             selector: 'my-app',
             templateUrl: 'app/view/layout.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService]
+            providers: [login_service_1.LoginService, urls_1.Urls]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.Router])
+        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.Router, urls_1.Urls])
     ], AppComponent);
     return AppComponent;
 }());
